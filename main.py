@@ -35,5 +35,6 @@ api.add_resource(resources.GetClients, '/user/clients') # Get Clients
 api.add_resource(resources.AddClient, '/user/clients/add') # Add a Client
 
 # Miscellaneous Admin APIs
-api.add_resource(resources.AllUsers, '/users')
+api.add_resource(resources.AllUsers, '/admin/users')
+api.add_resource(resources.AllClients, '/admin/clients')
 api.add_resource(resources.SecretResource, '/secret')
