@@ -17,7 +17,7 @@ class UserRegistration(Resource):
         data = parser.parse_args()
 
         if UserModel.find_by_email(data['email']):
-            return {'message': 'User {} already exists'.format(data['email'])}
+            return {'message': 'User {} already exists'.format(data['email'])}, 409
 
         new_user = UserModel(
             name = data['name'],
@@ -54,7 +54,7 @@ class UserLogin(Resource):
                 'access_token': access_token
                 }
         else:
-            return {'message': 'Wrong credentials'}
+            return {'message': 'Wrong credentials'}, 401
 
 # User Actions
 class GetClients(Resource):
