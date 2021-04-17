@@ -6,7 +6,7 @@ import uuid
 class UserModel(db.Model):
     __tablename__ = 'users'
 
-    id = db.Column(UUIDType(binary=False), primary_key = True)
+    id = db.Column(db.Integer, primary_key = True)
     email = db.Column(EmailType, unique = True, nullable = False)
     password = db.Column(db.String(120), nullable = False)
     name = db.Column(db.String(120), nullable = False)
@@ -42,7 +42,7 @@ class UserModel(db.Model):
 class ClientModel(db.Model):
     __tablename__ = 'clients'
 
-    relation_id = db.Column(UUIDType(binary=False), primary_key = True)
+    relation_id = db.Column(db.Integer, primary_key = True)
     worker_email = db.Column(EmailType, db.ForeignKey(UserModel.email), nullable = False)
     client_email = db.Column(EmailType, nullable = False)
     client_phone_no = db.Column(db.String(120), nullable = False)
