@@ -64,8 +64,9 @@ class ClientModel(db.Model):
         def to_json(x):
             return {
                 'relation_id' : x.relation_id,
-                'client_email': x.client_email,
-                'client_phone_no': x.client_phone_no
+                'client_name' : x.client_name,
+                'client_email' : x.client_email,
+                'client_phone_no' : x.client_phone_no
             }
         return {'clients': list(map(lambda x: to_json(x), ClientModel.query.filter_by(worker_email = worker_email).all()))}
 
@@ -74,7 +75,8 @@ class ClientModel(db.Model):
         def to_json(x):
             return {
                 'relation_id' : x.relation_id,
-                'client_email': x.client_email,
-                'client_phone_no': x.client_phone_no
+                'client_name' : x.client_name,
+                'client_email' : x.client_email,
+                'client_phone_no' : x.client_phone_no
             }
         return {'clients': list(map(lambda x: to_json(x), ClientModel.query.all()))}
