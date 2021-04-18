@@ -96,7 +96,7 @@ class GetProfile(Resource):
     @jwt_required()
     def get(self):
         email = get_jwt_identity()
-        return UserModel.find_by_email(email)
+        return UserModel.find_profile_by_email(email)
 
 class UpdateProfile(Resource):
 
