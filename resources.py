@@ -1,5 +1,6 @@
 from flask_restful import Resource, reqparse
 from models import UserModel, ClientModel
+from passlib.hash import pbkdf2_sha256 as sha256
 
 from flask_jwt_extended import (create_access_token,
     create_refresh_token,
@@ -90,6 +91,30 @@ class AddClient(Resource):
           'message': 'Success'
         }
 
+# Profile
+class GetProfile(Resource):
+    @jwt_required()
+    def get(self):
+        email = get_jwt_identity()
+        return UserModel.find_by_email(email)
+
+class UpdateProfile(Resource):
+
+    @jwt_required()
+    def post(self):
+        parser = reqparse.RequestParser()
+        parser.add_argument('password', help = 'This field cannot be blank', required = True)
+        parser.add_argument('name', help = 'This field cannot be blank', required = True)
+        data = parser.parse_args()
+        email = get_jwt_identity()
+        print(email)
+        try:
+            UserModel.update_details(data['name'], email, sha256.hash(data['password']))
+            return {
+              'message' : 'Success'
+            }
+        except:
+            return {'message': 'Error'}, 400
 
 # Miscellaneous
 class AllUsers(Resource):

@@ -42,6 +42,10 @@ api.add_resource(resources.UserLogin, '/auth/login')
 api.add_resource(resources.GetClients, '/user/clients') # Get Clients
 api.add_resource(resources.AddClient, '/user/clients/add') # Add a Client
 
+# Profile
+api.add_resource(resources.GetProfile, '/user/profile')
+api.add_resource(resources.UpdateProfile, '/user/profile/update') # Update Profile
+
 # Miscellaneous Admin APIs
 api.add_resource(resources.AllUsers, '/admin/users')
 api.add_resource(resources.AllClients, '/admin/clients')

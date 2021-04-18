@@ -2,6 +2,7 @@ from main import db
 from passlib.hash import pbkdf2_sha256 as sha256
 from sqlalchemy_utils import EmailType, UUIDType
 import uuid
+import json
 
 class UserModel(db.Model):
     __tablename__ = 'users'
@@ -17,7 +18,19 @@ class UserModel(db.Model):
 
     @classmethod
     def find_by_email(cls, email):
-        return cls.query.filter_by(email = email).first()
+        user_data = cls.query.filter_by(email = email).first()
+        return {
+            'id' : user_data.id,
+            'email' : user_data.email,
+            'name' : user_data.name
+        }
+
+    @classmethod
+    def update_details(cls, name, email, password):
+        user = cls.query.filter_by(email = email).first()
+        user.name = name
+        user.password = password
+        db.session.commit()
 
     @classmethod
     def return_all(cls):
